@@ -1,7 +1,8 @@
 // This is (some of) the code for the WebSession concept which was introduced in lecture on 9/18.
-// We're storing the user (in the form of the username string for now) when the user logs in, and we 
+// We're storing the user (in the form of the username string for now) when the user logs in, and we
 // reset the session's user when the user logs out.
 
+import assert from "assert";
 import { SessionData } from "express-session";
 import { UnauthenticatedError } from "./errors";
 
@@ -28,6 +29,7 @@ export default class WebSessionConcept {
     // Hint: Take a look at how the "end" function makes sure the user is logged in. Keep in mind that a
     // synchronization like starting a session should just consist of a series of actions that may throw
     // exceptions and should not have its own control flow.
+    assert.throws(() => this.isActive(session), "Already logged in!");
     session.user = username;
   }
 
